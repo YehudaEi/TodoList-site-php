@@ -1,74 +1,49 @@
-<?php 
-    include 'session.php';
-    include 'fonctions.php';
-    include 'database.php';
+<?php
+require_once 'include/func.php';
+
+$isLogged = login();
+
+if((!$isLogged || $isLogged < 0) && !isset($_GET['register'])){
+    if($isLogged == -1)
+        $incorrectPassword = true;
+    include 'include/login.php';
+}
+elseif((!$isLogged || $isLogged < 0) && isset($_GET['register'])) {
+    if(isset($_POST['username']) && isset($_POST['password']) && isset($_POST['password2']) && 
+        is_string($_POST['username']) && is_string($_POST['password']) && is_string($_POST['password2'])){
+        if(userExistByUsername($_POST['username'])){
+            $usernameExist = true;
+            include 'include/register.php';
+        }
+        elseif($_POST['password'] !== $_POST['password2']){
+            $invalidPasswords = true;
+            include 'include/register.php';
+        }
+        else{
+            createUser($_POST['username'], $_POST['password']);
+            header("Location: ?login");
+        }
+    }
+    else
+        include 'include/register.php';
+}
+elseif($isLogged > 0 && userExistById($isLogged)){
+    if(isset($_GET['logout'])){
+        unset($_SESSION['id']);
+        header("Location: ?login");
+    }
     
-    if(isset($_SESSION["id"])) header("location: todo.php");
-?>
-
-<?php 
-    include 'head.php';
-    include 'menu.php';
-?>
-	<div class="CONTAINER">
-		<div class="row">
-			<div class="col-sm-3"></div>
-			<div class="col-sm-6">
-				
-			    <div id="message">המערכת דורשת התחברות</div>
-				<div id="incorrectpassword">שם המשתמש או הסיסמה שגויים!</div>
-				<div id="contact">
-					<div id="barreConnexion"><p id="textConnexion">התחברות</p></div>
-					<div id="formulaire">
-						<form action="#" method="POST">
-							<p>שם משתמש:</p>
-							<input type="text" name="username" id="username" required autofocus autocomplete <?php displayValue('username') ?>>
-							<p>סיסמה:</p>
-							<input type="password" name="password" id="password" required>
-							<p></p>
-							<input type="submit" value="כניסה" id="btnLogin" class="btn btn-default">
-						</form>
-					</div>
-				</div> 
-			</div>
-			<div class="col-sm-3"></div>
-		</div> 
-
-<?php 
-if(!empty($_POST)){
-	if(validateRequiredField('username') && validatePassword('password')){
-		$co = getConnection($connection);
-		$username = $_POST['username'];
-		$sql = "SELECT * FROM users WHERE username LIKE \"$username\"";
-
-		$result = $co->query($sql)->fetch();
-		if($result !== false){
-			$password = $result['password'];
-			$salt = $result['salt'];
-			hashPassword($_POST['password'], $salt);
-
-			if(strcmp($_POST['password'], $password)== 0){
-				$_SESSION['id'] = $result['id']; 
-				echo "<script>window.location='todo.php'</script>";
-				exit(0);
-			}else{
-				echo '<style>#incorrectpassword{ display:block; }</style>';
-			}
-		}else{
-			echo '<style>#incorrectpassword{ display:block; }</style>';
-		}
-	}else{
-		echo '<style>#message{ display:block; }</style>';
-	}
+    elseif(isset($_GET['api']))
+        include 'include/api.php';
+    else{
+        if(isset($_POST['username']))
+            header("Location: ?todo");
+        include 'include/todo.php';
+    }
 }
-if(!isset($_SESSION["count"])){
-	$_SESSION["count"] = 1;
-}else{
-	echo '<style>#message{ display:block; }</style>';
+elseif(!userExistById($isLogged)){
+    unset($_SESSION['id']);
+    include 'include/login.php';
 }
- ?>
-
-<?php 
-    include 'footer.php';
-?>
-
+else
+    die("Error!");

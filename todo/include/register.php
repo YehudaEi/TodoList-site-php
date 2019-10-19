@@ -1,3 +1,7 @@
+<?php
+if(!defined('TODO')) die('access denied');
+?>
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -44,7 +48,7 @@
                                             <div class="uk-margin">
                                                 <div class="uk-position-relative">
                                                     <span class="uk-form-icon" uk-icon="icon: user"></span>
-                                                    <input name="username" class="uk-input" type="text" placeholder="שם משתמש">
+                                                    <input name="username" class="uk-input" type="text" placeholder="שם משתמש" autofocus>
                                                 </div>
                                             </div>
 
@@ -89,11 +93,8 @@
             </div>
         </div>
         <?php
-        if(isset($usernameExist) && $usernameExist){
-            echo '<script>UIkit.notification({message: "<span uk-icon=\"icon: close\"></span> שם המשתמש קיים במערכת...", status: "danger"});</script>';
-        }
-        elseif(isset($invalidPasswords) && $invalidPasswords){
-            echo '<script>UIkit.notification({message: "<span uk-icon=\"icon: close\"></span> הסיסמאות אינן תואמות!", status: "danger"});</script>';
+        if(isset($message) && strlen($message) > 0){
+            echo '<script>UIkit.notification({message: "<span uk-icon=\"icon: close\"></span> '.$message.'", status: "danger"});</script>';
         }
         ?>
     </body>

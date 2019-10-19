@@ -1,3 +1,7 @@
+<?php
+if(!defined('TODO')) die('access denied');
+?>
+
 <!DOCTYPE html>
 <html>
 
@@ -27,7 +31,7 @@
 		<h1 class="uk-heading-small uk-margin-top">רשימת מטלות</h1>
 		<hr class="uk-divider-icon">
 		<a class="uk-button uk-button-danger" href="?logout">התנתק</a>
-		<button class="uk-button uk-button-primary" style="background-color: #4CAF50 !important;" href="#add-matala-modal" uk-toggle>הוסף מטלה</button>
+		<button id="addButton" class="uk-button uk-button-primary" style="background-color: #4CAF50 !important;" href="#add-matala-modal" onclick="init(false)" uk-toggle>הוסף מטלה</button>
 		<!--<button class="uk-button uk-button-primary" onclick="SaveMatalot()">שמור</button>-->
 		<div class="uk-child-width-1-3@s uk-padding" uk-grid id="matalot">
 			<div>
@@ -50,7 +54,7 @@
 			<div class="uk-modal-dialog">
 				<button class="uk-modal-close-default" type="button" uk-close></button>
 				<div class="uk-modal-header">
-					<h2 class="uk-modal-title">הוספת מטלה</h2>
+					<h2 class="uk-modal-title" id="addMatalaTitle">הוספת מטלה</h2>
 				</div>
 				<div class="uk-modal-body">
 					<form>
@@ -121,17 +125,17 @@
 					</form>
 				</div>
 				<div class="uk-modal-footer uk-text-right">
-					<button class="uk-button uk-button-default uk-modal-close" type="button">בטל</button>
-					<button class="uk-button uk-button-primary uk-modal-close" type="button" onclick="addMatala()">הוסף</button>
+					<button id="cancelAddMatalaButton" class="uk-button uk-button-default uk-modal-close" type="button">בטל</button>
+					<button id="addMatalaButton" class="uk-button uk-button-primary uk-modal-close" type="button">הוסף</button>
 				</div>
 			</div>
 		</div>
 		<div>
-            <h1 class="uk-align-center"><span class="uk-text-muted uk-text-small" dir="ltr">created by <a href="https://t.me/YehudaEisenberg">Yehuda Eisenberg</a>. design by <a href="https://t.me/mugavri">mugavri</a>.</span></h1>
+            <h1 class="uk-align-center"><span class="uk-text-muted uk-text-small" dir="ltr">created by <a href="https://t.me/YehudaEisenberg">Yehuda Eisenberg</a>. design by <a href="https://t.me/Mugavri">Mugavri</a>.</span></h1>
         </div>
 	</div>
 	<script src="assest/js/jquery.min.js"></script>
-	<script src="assest/js/todo.js?ccc"></script>
+	<script src="assest/js/todo.js"></script>
 </body>
 
 </html>

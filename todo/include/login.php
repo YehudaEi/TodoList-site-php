@@ -1,3 +1,7 @@
+<?php
+if(!defined('TODO')) die('access denied');
+?>
+
 <!DOCTYPE html>
 <html>
 
@@ -7,8 +11,6 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta name="description" content="רשימת מטלות - אתר יפה לרשימת מטלות!">
 	<meta name="author" content="Yehuda Eisenberg">
-	<meta name="robots" content="noindex, nofollow">
-	<meta name="googlebot" content="noindex">
 	<link rel="icon" href="assest/logo.png" type="image/png">
 
 	<link rel="stylesheet" href="assest/css/uikit-rtl.min.css" />
@@ -46,7 +48,7 @@
                                         <div class="uk-margin">
                                             <div class="uk-position-relative">
                                                 <span class="uk-form-icon" uk-icon="icon: user"></span>
-                                                <input name="username" class="uk-input" placeholder="שם משתמש">
+                                                <input name="username" class="uk-input" placeholder="שם משתמש" autofocus> 
                                             </div>
                                         </div>
 
@@ -84,10 +86,9 @@
         </div>
     </div>
     <?php
-    if(isset($incorrectPassword) && $incorrectPassword){
-        echo '<script>UIkit.notification({message: "<span uk-icon=\"icon: close\"></span> שם המשתמש או הסיסמה שגויים!", status: "danger"});</script>';
+    if(isset($message) && strlen($message) > 0){
+        echo '<script>UIkit.notification({message: "<span uk-icon=\"icon: close\"></span> '.$message.'", status: "danger"});</script>';
     }
-    
     ?>
 </body>
 

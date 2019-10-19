@@ -1,4 +1,5 @@
 <?php
+if(!defined('TODO')) die('access denied');
 
 session_start();
 
@@ -32,7 +33,7 @@ function userExistByUsername($username){
 function getTodoByUserId($id){
     global $DBConn;
     
-    $res = $DBConn->query('SELECT * FROM `todo` WHERE `todo_user_id` = "'.$id.'";');
+    $res = $DBConn->query('SELECT * FROM `todo` WHERE `todo_user_id` = "'.cleanString($id).'";');
     
     return $res->fetch_all();
 }
@@ -48,13 +49,30 @@ function todoShellUser($userId, $todoId){
 function deleteTodo($id){
     global $DBConn;
     
-    $DBConn->query('UPDATE `todo` SET `isDeleted` = "1" WHERE `todo_id` = "'.$id.'";');
+    $DBConn->query('UPDATE `todo` SET `isDeleted` = "1" WHERE `todo_id` = "'.cleanString($id).'";');
 }
 
 function moveTodo($id, $newType){
     global $DBConn;
     
     $DBConn->query('UPDATE `todo` SET `type` = "'.cleanString($newType).'" WHERE `todo_id` = "'.$id.'";');
+}
+
+function editTodo($userId, $id, $title, $description, $tags){
+    global $DBConn;
+    
+    $res = $DBConn->query('SELECT * FROM `todo` WHERE `todo_id` = "'.cleanString($id).'" AND `todo_user_id` = "'.cleanString($userId).'";');
+    $res = $res->fetch_array();
+    
+    if($res['isDeleted']) return;
+    
+    if($res['title'] != $title)
+        $DBConn->query('UPDATE `todo` SET `title` = "'.cleanString($title).'" WHERE `todo_id` = "'.cleanString($id).'";');
+    if($res['description'] != $description)
+        $DBConn->query('UPDATE `todo` SET `description` = "'.cleanString($description).'" WHERE `todo_id` = "'.cleanString($id).'";');
+    if($res['tags'] != $tags)
+        $DBConn->query('UPDATE `todo` SET `tags` = "'.cleanString($tags).'" WHERE `todo_id` = "'.cleanString($id).'";');
+    
 }
 
 function newTodo($userId, $title, $description, $tags){
@@ -84,6 +102,9 @@ function login(){
     
     if(isset($_GET['register']))
         return false;
+    
+    if(strlen($username) > 50 || strlen($password) > 50)
+        return -2;
     
     if(!empty($username) && !empty($password)){
         $res = $DBConn->query('SELECT * FROM `users` WHERE `username` = "'.cleanString(strtolower($username)).'";');

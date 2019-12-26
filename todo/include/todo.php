@@ -13,11 +13,13 @@ if(!defined('TODO')) die('access denied');
 	<meta name="author" content="Yehuda Eisenberg">
 	<meta name="robots" content="noindex, nofollow">
 	<meta name="googlebot" content="noindex">
-	<link rel="icon" href="assest/logo.png" type="image/png">
+	<link rel="icon" href="assets/logo.png" type="image/png">
 
-	<link rel="stylesheet" href="assest/css/uikit-rtl.min.css" />
-	<script src="assest/js/uikit.min.js"></script>
-	<script src="assest/js/uikit-icons.min.js"></script>
+	<link rel="stylesheet" href="assets/css/uikit-rtl.min.css" />
+	<script src="assets/js/jquery.min.js"></script>
+	<script src="assets/js/main.js?version=<?php echo JS_VERSION ?>"></script>
+	<script src="assets/js/uikit.min.js"></script>
+	<script src="assets/js/uikit-icons.min.js"></script>
 	<style>
 		.uk-notification-message {
 		            background: #80d296 !important;
@@ -27,11 +29,12 @@ if(!defined('TODO')) die('access denied');
 
 <body class="uk-background-muted uk-height-viewport" dir="rtl">
 	<div class="uk-container uk-text-center">
-		<img data-src="assest/logo.png" width="" alt="logo" uk-img style="height: 150px !important;">
+		<img data-src="assets/logo.png" width="" alt="logo" uk-img style="height: 150px !important;">
 		<h1 class="uk-heading-small uk-margin-top">רשימת מטלות</h1>
 		<hr class="uk-divider-icon">
-		<a class="uk-button uk-button-danger" href="?logout">התנתק</a>
+		<a class="uk-button uk-button-danger" onclick="logout(); return false;">התנתק</a>
 		<button id="addButton" class="uk-button uk-button-primary" style="background-color: #4CAF50 !important;" href="#add-matala-modal" onclick="init(false)" uk-toggle>הוסף מטלה</button>
+		<a class="uk-button uk-button-primary" onclick="todoToArchive(); return false;">ארכיון</a>
 		<!--<button class="uk-button uk-button-primary" onclick="SaveMatalot()">שמור</button>-->
 		<div class="uk-child-width-1-3@s uk-padding" uk-grid id="matalot">
 			<div>
@@ -65,7 +68,7 @@ if(!defined('TODO')) die('access denied');
 							</div>
 							<div class="uk-margin">
 								<legend class="uk-legend">פירוט</legend>
-								<textarea class="uk-textarea" rows="3" placeholder="פירוט" id="matalaDescription"></textarea>
+								<textarea class="uk-textarea" rows="10" placeholder="פירוט" id="matalaDescription"></textarea>
 							</div>
 							<div class="uk-marginuk-grid-small" uk-grid>
 								<legend class="uk-legend">תגיות</legend>
@@ -134,8 +137,7 @@ if(!defined('TODO')) die('access denied');
             <h1 class="uk-align-center"><span class="uk-text-muted uk-text-small" dir="ltr">created by <a href="https://t.me/YehudaEisenberg">Yehuda Eisenberg</a>. design by <a href="https://t.me/Mugavri">Mugavri</a>.</span></h1>
         </div>
 	</div>
-	<script src="assest/js/jquery.min.js"></script>
-	<script src="assest/js/todo.js"></script>
+	<script src="assets/js/todo.js?version=<?php echo JS_VERSION ?>"></script>
 </body>
 
 </html>

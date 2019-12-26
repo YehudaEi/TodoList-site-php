@@ -47,6 +47,10 @@ elseif($isLogged > 0 && userExistById($isLogged)){
     
     elseif(isset($_GET['api']))
         include 'include/api.php';
+        
+    elseif(isset($_GET['archive']))
+        include 'include/archive.php';
+    
     else{
         if(isset($_POST['username']))
             header("Location: ?todo");

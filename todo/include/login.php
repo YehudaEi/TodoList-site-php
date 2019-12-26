@@ -11,12 +11,14 @@ if(!defined('TODO')) die('access denied');
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta name="description" content="רשימת מטלות - אתר יפה לרשימת מטלות!">
 	<meta name="author" content="Yehuda Eisenberg">
-	<link rel="icon" href="assest/logo.png" type="image/png">
+	<link rel="icon" href="assets/logo.png" type="image/png">
 
-	<link rel="stylesheet" href="assest/css/uikit-rtl.min.css" />
-	<link rel="stylesheet" href="assest/css/style.css" />
-	<script src="assest/js/uikit.min.js"></script>
-	<script src="assest/js/uikit-icons.min.js"></script>
+	<link rel="stylesheet" href="assets/css/uikit-rtl.min.css" />
+	<link rel="stylesheet" href="assets/css/style.css" />
+	<script src="assets/js/jquery.min.js"></script>
+	<script src="assets/js/main.js?version=<?php echo JS_VERSION ?>"></script>
+	<script src="assets/js/uikit.min.js"></script>
+	<script src="assets/js/uikit-icons.min.js"></script>
 </head>
 
 <body dir="rtl">
@@ -42,41 +44,34 @@ if(!defined('TODO')) die('access denied');
                                 <center>
                                     <h2>ברוכים הבאים</h2><br />
                                 </center>
-                                <form method="POST">
-                                    <fieldset class="uk-fieldset">
-
-                                        <div class="uk-margin">
-                                            <div class="uk-position-relative">
-                                                <span class="uk-form-icon" uk-icon="icon: user"></span>
-                                                <input name="username" class="uk-input" placeholder="שם משתמש" autofocus> 
-                                            </div>
+                                <fieldset class="uk-fieldset">
+                                    <div class="uk-margin">
+                                        <div class="uk-position-relative">
+                                            <span class="uk-form-icon" uk-icon="icon: user"></span>
+                                            <input name="username" class="uk-input" placeholder="שם משתמש" autofocus> 
                                         </div>
-
-                                        <div class="uk-margin">
-                                            <div class="uk-position-relative">
-                                                <span class="uk-form-icon" uk-icon="icon: lock"></span>
-                                                <input name="password" class="uk-input" type="password" placeholder="סיסמה">
-                                            </div>
+                                    </div>
+                                    <div class="uk-margin">
+                                        <div class="uk-position-relative">
+                                            <span class="uk-form-icon" uk-icon="icon: lock"></span>
+                                            <input name="password" class="uk-input" type="password" placeholder="סיסמה">
                                         </div>
-
-                                        <div class="uk-margin">
-                                            <button type="submit" class="uk-button uk-button-primary">
-                                                <span uk-icon="icon: sign-in"></span>&nbsp; כניסה
-                                            </button>
-                                        </div>
-
-                                        <hr />
-
-                                        <center>
-                                            <p>
-                                                אין לך חשבון? 
-                                            </p>
-                                            <a href="?register" class="uk-button uk-button-default">
-                                                <span uk-icon="icon: user"></span>&nbsp; הרשם
-                                            </a>
-                                        </center>
-                                    </fieldset>
-                                </form>
+                                    </div>
+                                    <div class="uk-margin">
+                                        <button class="uk-button uk-button-primary" onclick="login(); return false;">
+                                            <span uk-icon="icon: sign-in"></span>&nbsp; כניסה
+                                        </button>
+                                    </div>
+                                    <hr />
+                                    <center>
+                                        <p>
+                                            אין לך חשבון? 
+                                        </p>
+                                        <a class="uk-button uk-button-default" onclick="loginToRegister()">
+                                            <span uk-icon="icon: user"></span>&nbsp; הרשם
+                                        </a>
+                                    </center>
+                                </fieldset>
                             </div>
                         </div>
                     </div>

@@ -1,6 +1,6 @@
 # TodoList-site-php
 
-## [The site](https://todo.yehudae.ga/)
+## [The site](https://todo.yehudae.net/)
 
 ### config:
     /todo/include/func.php(5):
